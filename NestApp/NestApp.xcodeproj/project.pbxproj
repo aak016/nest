@@ -7,16 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A9F46381FC9B694000E91B5 /* NSTAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F46371FC9B694000E91B5 /* NSTAuthenticationViewController.swift */; };
+		9A9F463B1FC9B6B2000E91B5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9F463A1FC9B6B2000E91B5 /* WebKit.framework */; };
+		9A9F463E1FC9B8AA000E91B5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F463D1FC9B8AA000E91B5 /* Constants.swift */; };
+		9A9F46401FC9C093000E91B5 /* NSTConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F463F1FC9C093000E91B5 /* NSTConnectionService.swift */; };
+		9A9F46421FC9CAD9000E91B5 /* NSTMainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F46411FC9CAD9000E91B5 /* NSTMainTableViewController.swift */; };
+		9A9F46441FC9CB28000E91B5 /* NSTAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F46431FC9CB28000E91B5 /* NSTAuthenticationService.swift */; };
+		9A9F46451FC9D6A0000E91B5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA5F71A1FC89730009DABB6 /* Alamofire.framework */; };
+		9A9F46461FC9D6A0000E91B5 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA5F71A1FC89730009DABB6 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AA5F6E41FC8963E009DABB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5F6E31FC8963E009DABB6 /* AppDelegate.swift */; };
-		9AA5F6E61FC8963E009DABB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5F6E51FC8963E009DABB6 /* ViewController.swift */; };
 		9AA5F6E91FC8963E009DABB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AA5F6E71FC8963E009DABB6 /* Main.storyboard */; };
 		9AA5F6EB1FC8963E009DABB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AA5F6EA1FC8963E009DABB6 /* Assets.xcassets */; };
 		9AA5F6EE1FC8963E009DABB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AA5F6EC1FC8963E009DABB6 /* LaunchScreen.storyboard */; };
-		9AA5F7271FC897E0009DABB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA5F71A1FC89730009DABB6 /* Alamofire.framework */; };
-		9AA5F7281FC897E0009DABB6 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA5F71A1FC89730009DABB6 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9AFEA0951FCAE65800C908BA /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0941FCAE65800C908BA /* Structure.swift */; };
+		9AFEA0971FCAE67700C908BA /* Thermostat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0961FCAE67700C908BA /* Thermostat.swift */; };
+		9AFEA0991FCAE69A00C908BA /* CurrentStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9A9F46471FC9D6A0000E91B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AA5F70E1FC89730009DABB6 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
 		9AA5F7191FC89730009DABB6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9AA5F70E1FC89730009DABB6 /* Alamofire.xcodeproj */;
@@ -66,23 +81,16 @@
 			remoteGlobalIDString = E4202FE01B667AA100C997FB;
 			remoteInfo = "Alamofire watchOS";
 		};
-		9AA5F7291FC897E0009DABB6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AA5F70E1FC89730009DABB6 /* Alamofire.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9AA5F72B1FC897E0009DABB6 /* Embed Frameworks */ = {
+		9A9F46491FC9D6A0000E91B5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9AA5F7281FC897E0009DABB6 /* Alamofire.framework in Embed Frameworks */,
+				9A9F46461FC9D6A0000E91B5 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,14 +98,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A9F46371FC9B694000E91B5 /* NSTAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTAuthenticationViewController.swift; sourceTree = "<group>"; };
+		9A9F463A1FC9B6B2000E91B5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		9A9F463D1FC9B8AA000E91B5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9A9F463F1FC9C093000E91B5 /* NSTConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTConnectionService.swift; sourceTree = "<group>"; };
+		9A9F46411FC9CAD9000E91B5 /* NSTMainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTMainTableViewController.swift; sourceTree = "<group>"; };
+		9A9F46431FC9CB28000E91B5 /* NSTAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTAuthenticationService.swift; sourceTree = "<group>"; };
 		9AA5F6E01FC8963E009DABB6 /* NestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AA5F6E31FC8963E009DABB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9AA5F6E51FC8963E009DABB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9AA5F6E81FC8963E009DABB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9AA5F6EA1FC8963E009DABB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AA5F6ED1FC8963E009DABB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AA5F6EF1FC8963E009DABB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AA5F70E1FC89730009DABB6 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		9AFEA0941FCAE65800C908BA /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
+		9AFEA0961FCAE67700C908BA /* Thermostat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thermostat.swift; sourceTree = "<group>"; };
+		9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentStructures.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,19 +121,50 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AA5F7271FC897E0009DABB6 /* Alamofire.framework in Frameworks */,
+				9A9F463B1FC9B6B2000E91B5 /* WebKit.framework in Frameworks */,
+				9A9F46451FC9D6A0000E91B5 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A9F462F1FC9B5AE000E91B5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9AA5F6E71FC8963E009DABB6 /* Main.storyboard */,
+				9AA5F6EC1FC8963E009DABB6 /* LaunchScreen.storyboard */,
+				9A9F46371FC9B694000E91B5 /* NSTAuthenticationViewController.swift */,
+				9A9F46411FC9CAD9000E91B5 /* NSTMainTableViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		9A9F46391FC9B6B2000E91B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A9F463A1FC9B6B2000E91B5 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A9F463C1FC9B89A000E91B5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9A9F463D1FC9B8AA000E91B5 /* Constants.swift */,
+				9A9F463F1FC9C093000E91B5 /* NSTConnectionService.swift */,
+				9A9F46431FC9CB28000E91B5 /* NSTAuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		9AA5F6D71FC8963E009DABB6 = {
 			isa = PBXGroup;
 			children = (
 				9AA5F70E1FC89730009DABB6 /* Alamofire.xcodeproj */,
 				9AA5F6E21FC8963E009DABB6 /* NestApp */,
 				9AA5F6E11FC8963E009DABB6 /* Products */,
+				9A9F46391FC9B6B2000E91B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,11 +179,11 @@
 		9AA5F6E21FC8963E009DABB6 /* NestApp */ = {
 			isa = PBXGroup;
 			children = (
+				9AFEA08C1FCAE64500C908BA /* Data */,
+				9A9F463C1FC9B89A000E91B5 /* Services */,
+				9A9F462F1FC9B5AE000E91B5 /* UI */,
 				9AA5F6E31FC8963E009DABB6 /* AppDelegate.swift */,
-				9AA5F6E51FC8963E009DABB6 /* ViewController.swift */,
-				9AA5F6E71FC8963E009DABB6 /* Main.storyboard */,
 				9AA5F6EA1FC8963E009DABB6 /* Assets.xcassets */,
-				9AA5F6EC1FC8963E009DABB6 /* LaunchScreen.storyboard */,
 				9AA5F6EF1FC8963E009DABB6 /* Info.plist */,
 			);
 			path = NestApp;
@@ -156,6 +203,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9AFEA08C1FCAE64500C908BA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */,
+				9AFEA0941FCAE65800C908BA /* Structure.swift */,
+				9AFEA0961FCAE67700C908BA /* Thermostat.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,12 +223,12 @@
 				9AA5F6DC1FC8963E009DABB6 /* Sources */,
 				9AA5F6DD1FC8963E009DABB6 /* Frameworks */,
 				9AA5F6DE1FC8963E009DABB6 /* Resources */,
-				9AA5F72B1FC897E0009DABB6 /* Embed Frameworks */,
+				9A9F46491FC9D6A0000E91B5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9AA5F72A1FC897E0009DABB6 /* PBXTargetDependency */,
+				9A9F46481FC9D6A0000E91B5 /* PBXTargetDependency */,
 			);
 			name = NestApp;
 			productName = NestApp;
@@ -288,18 +345,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AA5F6E61FC8963E009DABB6 /* ViewController.swift in Sources */,
+				9A9F46421FC9CAD9000E91B5 /* NSTMainTableViewController.swift in Sources */,
+				9A9F46441FC9CB28000E91B5 /* NSTAuthenticationService.swift in Sources */,
+				9AFEA0991FCAE69A00C908BA /* CurrentStructures.swift in Sources */,
+				9A9F46381FC9B694000E91B5 /* NSTAuthenticationViewController.swift in Sources */,
 				9AA5F6E41FC8963E009DABB6 /* AppDelegate.swift in Sources */,
+				9A9F463E1FC9B8AA000E91B5 /* Constants.swift in Sources */,
+				9AFEA0951FCAE65800C908BA /* Structure.swift in Sources */,
+				9AFEA0971FCAE67700C908BA /* Thermostat.swift in Sources */,
+				9A9F46401FC9C093000E91B5 /* NSTConnectionService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9AA5F72A1FC897E0009DABB6 /* PBXTargetDependency */ = {
+		9A9F46481FC9D6A0000E91B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Alamofire iOS";
-			targetProxy = 9AA5F7291FC897E0009DABB6 /* PBXContainerItemProxy */;
+			targetProxy = 9A9F46471FC9D6A0000E91B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
