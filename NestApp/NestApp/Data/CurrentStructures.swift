@@ -11,6 +11,7 @@ import Foundation
 class CurrentStructures {
     
     private var cachedStructures: [Structure]?
+    private var cachedCameras: [Camera] = []
     
     var authenticationService: NSTAuthenticationService? {
         didSet {
@@ -37,7 +38,21 @@ class CurrentStructures {
     }
     
     open func getCamera(id: String, completion: @escaping(Camera?) -> Void) {
-        
+        if let camera = cachedCameras.first(where: { $0.id != nil && $0.id! == id }) {
+            DispatchQueue.main.async {
+                completion(camera)
+            }
+        } else {
+            connectionService.requestCamera(id: id, completion: { [weak self] (camera) in
+                DispatchQueue.main.async {
+                    if camera != nil {
+                        self?.cachedCameras = self?.cachedCameras.filter { return $0.id != id } ?? []
+                        self?.cachedCameras.append(camera!)
+                    }
+                    completion(camera)
+                }
+            })
+        }
     }
     
     open func invalidate() {

@@ -7,21 +7,39 @@
 //
 
 import Alamofire
-import UIKit
 
 protocol NSTAuthenticationServiceDelegate {
     func authenticationServiceReady(_ service: NSTAuthenticationService)
     func authenticationServiceFailed(_ service: NSTAuthenticationService)
 }
 
-class NSTAuthenticationService: UIViewController {
+class NSTAuthenticationService {
     
     private static let authorizationUrlFormat = "https://api.home.nest.com/oauth2/access_token?code=%@&client_id=%@&client_secret=%@&grant_type=authorization_code"
     private static let tokenKey = "accessTokenKey"
+    private static let defaultsTokenKey = "accessTokenKey"
+    private static let defaultsTokenDate = "accessTokenDateKey"
+    
+    private static let storedTokenTimeout: TimeInterval = 15*3600
     
     private(set) var token: String?
     
     open var delegate: NSTAuthenticationServiceDelegate?
+    
+    init() {
+        let storedToken = UserDefaults.standard.string(forKey: NSTAuthenticationService.defaultsTokenKey)
+        let storenTokenDate = UserDefaults.standard.value(forKey: NSTAuthenticationService.defaultsTokenDate) as? Date
+        
+        guard storedToken != nil, storenTokenDate != nil else {
+            return
+        }
+        
+        if storenTokenDate!.timeIntervalSinceNow <= 0 {
+            return
+        }
+        
+        token = storedToken
+    }
 
     open func authorized() -> Bool {
         return (token?.count ?? 0) > 0
@@ -46,6 +64,8 @@ class NSTAuthenticationService: UIViewController {
         }
         
         group.notify(queue: DispatchQueue.main) {
+            UserDefaults.standard.set(self.token, forKey: NSTAuthenticationService.defaultsTokenKey)
+            UserDefaults.standard.set(Date(timeIntervalSinceNow: NSTAuthenticationService.storedTokenTimeout), forKey: NSTAuthenticationService.defaultsTokenDate)
             completion(self.token)
         }
     }

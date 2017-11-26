@@ -23,6 +23,8 @@
 		9AFEA0971FCAE67700C908BA /* Thermostat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0961FCAE67700C908BA /* Thermostat.swift */; };
 		9AFEA0991FCAE69A00C908BA /* CurrentStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */; };
 		9AFEA09B1FCAED7100C908BA /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA09A1FCAED7100C908BA /* Camera.swift */; };
+		9AFEA09D1FCB25AD00C908BA /* NSTStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA09C1FCB25AD00C908BA /* NSTStructureViewController.swift */; };
+		9AFEA09F1FCB49DD00C908BA /* NSTCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA09E1FCB49DD00C908BA /* NSTCameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,8 @@
 		9AFEA0961FCAE67700C908BA /* Thermostat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thermostat.swift; sourceTree = "<group>"; };
 		9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentStructures.swift; sourceTree = "<group>"; };
 		9AFEA09A1FCAED7100C908BA /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		9AFEA09C1FCB25AD00C908BA /* NSTStructureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTStructureViewController.swift; sourceTree = "<group>"; };
+		9AFEA09E1FCB49DD00C908BA /* NSTCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTCameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 				9AA5F6EC1FC8963E009DABB6 /* LaunchScreen.storyboard */,
 				9A9F46371FC9B694000E91B5 /* NSTAuthenticationViewController.swift */,
 				9A9F46411FC9CAD9000E91B5 /* NSTMainTableViewController.swift */,
+				9AFEA09C1FCB25AD00C908BA /* NSTStructureViewController.swift */,
+				9AFEA09E1FCB49DD00C908BA /* NSTCameraViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -349,7 +355,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A9F46421FC9CAD9000E91B5 /* NSTMainTableViewController.swift in Sources */,
+				9AFEA09F1FCB49DD00C908BA /* NSTCameraViewController.swift in Sources */,
 				9A9F46441FC9CB28000E91B5 /* NSTAuthenticationService.swift in Sources */,
+				9AFEA09D1FCB25AD00C908BA /* NSTStructureViewController.swift in Sources */,
 				9AFEA0991FCAE69A00C908BA /* CurrentStructures.swift in Sources */,
 				9A9F46381FC9B694000E91B5 /* NSTAuthenticationViewController.swift in Sources */,
 				9AA5F6E41FC8963E009DABB6 /* AppDelegate.swift in Sources */,

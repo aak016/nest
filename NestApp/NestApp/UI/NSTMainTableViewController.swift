@@ -31,15 +31,49 @@ class NSTMainTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        needToRequestPIN = true
-        
         let reloadItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: #selector(reload(_:)))
         navigationItem.rightBarButtonItem = reloadItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presentAuthenticationController()
+        
+        if authenticationService.authorized() {
+            populateTable()
+        } else {
+            needToRequestPIN = true
+            presentAuthenticationController()
+        }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let selectedIndexPath = tableView.indexPathForSelectedRow!
+        
+        if identifier == "pushStructureSegue", structures != nil, structures!.count > selectedIndexPath.row {
+            return true
+        } else {
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+            return false
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        if  selectedIndexPath != nil {
+            tableView.deselectRow(at: selectedIndexPath!, animated: true)
+        }
+        
+        if segue.identifier == "pushStructureSegue" {
+            let destination = segue.destination as! NSTStructureViewController
+            
+            if selectedIndexPath != nil, structures != nil {
+                let structure = structures![selectedIndexPath!.row]
+                destination.configure(with: structure, currentStructures: currentStructures)
+            } else {
+                assert(false, "shouldPerformSegue had to prevent this situation!")
+            }
+        }
     }
     
     private func presentAuthenticationController() {
@@ -86,6 +120,24 @@ class NSTMainTableViewController: UIViewController {
 }
 
 extension NSTMainTableViewController: UITableViewDataSource {
+    
+    private func structureDetail(for structure: Structure) -> String {
+        let thermostatsLine = structure.thermostatsIds != nil && structure.thermostatsIds!.count > 0 ? String(format: "%d thermostat(s)", structure.thermostatsIds!.count) : nil
+        let camerasLine = structure.camerasIds != nil && structure.camerasIds!.count > 0 ? String(format: "%d camera(s)", structure.camerasIds!.count) : nil
+        
+        var resultLine = thermostatsLine ?? ""
+        
+        if resultLine.count > 0 && camerasLine != nil {
+            resultLine += ", "
+        }
+        
+        if camerasLine != nil {
+            resultLine += camerasLine!
+        }
+        
+        return resultLine
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return structures?.count ?? 0
     }
@@ -94,8 +146,13 @@ extension NSTMainTableViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "structureCellId")!
         
         cell.textLabel?.text = structures![indexPath.row].name
+        cell.detailTextLabel?.text = structureDetail(for: structures![indexPath.row])
         
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 

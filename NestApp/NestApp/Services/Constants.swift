@@ -7,7 +7,7 @@
 //
 
 class Constants {
-    public static let productId = ""
-    public static let productSecret = ""
+    public static let productId = "83761e12-037e-44c9-9bb9-25ae415c4d01"
+    public static let productSecret = "qdvAwxfdRU4RFyCoBPSVFxqeT"
     public static let authorizationUrl = "https://home.nest.com/login/oauth2?client_id=%@&state=%@"
 }

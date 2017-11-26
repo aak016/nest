@@ -77,4 +77,18 @@ class NSTConnectionService {
             completion(structures)
         })
     }
+    
+    open func requestCamera(id: String, completion: @escaping (Camera?) -> Void) {
+        assert(authenticationService != nil && authenticationService!.token != nil)
+        let token = authenticationService!.token!
+        
+        request(String(format: "devices/cameras/%@", id), token: token, completion: { (result) in
+            guard result != nil else {
+                return
+            }
+            
+            let camera = Camera.parse(json: result!)
+            completion(camera)
+        })
+    }
 }
