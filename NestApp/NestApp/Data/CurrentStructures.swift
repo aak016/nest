@@ -12,6 +12,7 @@ class CurrentStructures {
     
     private var cachedStructures: [Structure]?
     private var cachedCameras: [Camera] = []
+    private var cachedThermostats: [Thermostat] = []
     
     var authenticationService: NSTAuthenticationService? {
         didSet {
@@ -50,6 +51,24 @@ class CurrentStructures {
                         self?.cachedCameras.append(camera!)
                     }
                     completion(camera)
+                }
+            })
+        }
+    }
+    
+    open func getThermostat(id: String, completion: @escaping(Thermostat?) -> Void) {
+        if let thermostat = cachedThermostats.first(where: { $0.id != nil && $0.id! == id }) {
+            DispatchQueue.main.async {
+                completion(thermostat)
+            }
+        } else {
+            connectionService.requestThermostat(id: id, completion: { [weak self] (thermostat) in
+                DispatchQueue.main.async {
+                    if thermostat != nil {
+                        self?.cachedThermostats = self?.cachedThermostats.filter { return $0.id != id } ?? []
+                        self?.cachedThermostats.append(thermostat!)
+                    }
+                    completion(thermostat)
                 }
             })
         }

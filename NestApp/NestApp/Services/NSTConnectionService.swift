@@ -91,4 +91,18 @@ class NSTConnectionService {
             completion(camera)
         })
     }
+    
+    open func requestThermostat(id: String, completion: @escaping (Thermostat?) -> Void) {
+        assert(authenticationService != nil && authenticationService!.token != nil)
+        let token = authenticationService!.token!
+        
+        request(String(format: "devices/thermostats/%@", id), token: token, completion: { (result) in
+            guard result != nil else {
+                return
+            }
+            
+            let camera = Thermostat.parse(json: result!)
+            completion(camera)
+        })
+    }
 }
