@@ -57,5 +57,6 @@ class CurrentStructures {
     
     open func invalidate() {
         cachedStructures = nil
+        cachedCameras = nil
     }
 }

@@ -322,10 +322,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="8Nz-Z3-sgM" firstAttribute="top" secondItem="hus-ql-21G" secondAttribute="bottom" constant="30" id="1zW-xK-BEQ"/>
-                            <constraint firstItem="hus-ql-21G" firstAttribute="leading" secondItem="U8S-wT-QGx" secondAttribute="leading" constant="67" id="2uU-ul-YM2"/>
-                            <constraint firstItem="U8S-wT-QGx" firstAttribute="trailing" secondItem="hus-ql-21G" secondAttribute="trailing" constant="68" id="6yN-8r-1nq"/>
                             <constraint firstItem="8Nz-Z3-sgM" firstAttribute="trailing" secondItem="U8S-wT-QGx" secondAttribute="trailing" id="EPQ-4D-52F"/>
                             <constraint firstItem="bgI-lH-YI1" firstAttribute="top" secondItem="hus-ql-21G" secondAttribute="top" id="NfW-mF-I7z"/>
+                            <constraint firstItem="hus-ql-21G" firstAttribute="centerX" secondItem="NFd-fE-9Lw" secondAttribute="centerX" id="OgS-8j-xIV"/>
                             <constraint firstItem="hus-ql-21G" firstAttribute="top" secondItem="U8S-wT-QGx" secondAttribute="top" constant="27" id="PTW-Lr-17b"/>
                             <constraint firstItem="8Nz-Z3-sgM" firstAttribute="bottom" secondItem="U8S-wT-QGx" secondAttribute="bottom" id="Vyd-Wo-5aN"/>
                             <constraint firstItem="bgI-lH-YI1" firstAttribute="bottom" secondItem="hus-ql-21G" secondAttribute="bottom" id="blJ-2e-bn7"/>
