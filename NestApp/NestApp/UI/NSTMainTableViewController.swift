@@ -11,13 +11,30 @@ import UIKit
 class NSTMainTableViewController: UIViewController {
     
     private var needToRequestPIN = false
-    private var authenticationService = NSTAuthenticationService()
-    private var devicesService = NSTConnectionService()
+    private lazy var authenticationService: NSTAuthenticationService = {
+        let service = NSTAuthenticationService()
+        service.delegate = self
+        return service
+    } ()
+    private lazy var currentStructures: CurrentStructures = {
+        let structures = CurrentStructures()
+        structures.authenticationService = self.authenticationService
+        return structures
+    } ()
+    
+    
+    private var structures: [Structure]?
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var loadingIndicatorView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         needToRequestPIN = true
+        
+        let reloadItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: #selector(reload(_:)))
+        navigationItem.rightBarButtonItem = reloadItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,11 +56,16 @@ class NSTMainTableViewController: UIViewController {
         }
     }
 
-    private func populateTableView() {
-        if let token = authenticationService.token {
-            devicesService.request("structures", token: token, completion: { (response) in
-                
-            })
+    private func populateTable() {
+        view.bringSubview(toFront: loadingIndicatorView)
+        
+        currentStructures.getStructures { [weak self] (structures) in
+            self?.structures = structures
+            self?.tableView?.reloadData()
+            
+            if self != nil {
+                self!.view.bringSubview(toFront: self!.tableView)
+            }
         }
     }
     
@@ -56,18 +78,41 @@ class NSTMainTableViewController: UIViewController {
             self?.presentAuthenticationController()
         }
     }
+    
+    @objc private func reload(_: AnyObject) {
+        currentStructures.invalidate()
+        populateTable()
+    }
+}
+
+extension NSTMainTableViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return structures?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "structureCellId")!
+        
+        cell.textLabel?.text = structures![indexPath.row].name
+        
+        return cell
+    }
 }
 
 extension NSTMainTableViewController: NSTAuthenticationViewControllerDelegate {
-    func viewController(_: NSTAuthenticationViewController, receivedCredentials credentials: String) {
-        self.dismiss(animated: true, completion: nil)
-        
-        authenticationService.request(authorizationCode: credentials) { (_token) in
-            if let token = _token {
-                self.populateTableView()
-            } else {
-                self.reportTokenFailure()
-            }
-        }
+    func viewController(_: NSTAuthenticationViewController, receivedPin pin: String) {
+        dismiss(animated: true, completion: nil)
+        authenticationService.setPin(pin)
+    }
+}
+
+extension NSTMainTableViewController: NSTAuthenticationServiceDelegate {
+    func authenticationServiceReady(_ service: NSTAuthenticationService) {
+        populateTable()
+    }
+    
+    func authenticationServiceFailed(_ service: NSTAuthenticationService) {
+        needToRequestPIN = true
+        presentAuthenticationController()
     }
 }

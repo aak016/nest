@@ -22,6 +22,7 @@
 		9AFEA0951FCAE65800C908BA /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0941FCAE65800C908BA /* Structure.swift */; };
 		9AFEA0971FCAE67700C908BA /* Thermostat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0961FCAE67700C908BA /* Thermostat.swift */; };
 		9AFEA0991FCAE69A00C908BA /* CurrentStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */; };
+		9AFEA09B1FCAED7100C908BA /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEA09A1FCAED7100C908BA /* Camera.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		9AFEA0941FCAE65800C908BA /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
 		9AFEA0961FCAE67700C908BA /* Thermostat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thermostat.swift; sourceTree = "<group>"; };
 		9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentStructures.swift; sourceTree = "<group>"; };
+		9AFEA09A1FCAED7100C908BA /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 		9AFEA08C1FCAE64500C908BA /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9AFEA09A1FCAED7100C908BA /* Camera.swift */,
 				9AFEA0981FCAE69A00C908BA /* CurrentStructures.swift */,
 				9AFEA0941FCAE65800C908BA /* Structure.swift */,
 				9AFEA0961FCAE67700C908BA /* Thermostat.swift */,
@@ -351,6 +354,7 @@
 				9A9F46381FC9B694000E91B5 /* NSTAuthenticationViewController.swift in Sources */,
 				9AA5F6E41FC8963E009DABB6 /* AppDelegate.swift in Sources */,
 				9A9F463E1FC9B8AA000E91B5 /* Constants.swift in Sources */,
+				9AFEA09B1FCAED7100C908BA /* Camera.swift in Sources */,
 				9AFEA0951FCAE65800C908BA /* Structure.swift in Sources */,
 				9AFEA0971FCAE67700C908BA /* Thermostat.swift in Sources */,
 				9A9F46401FC9C093000E91B5 /* NSTConnectionService.swift in Sources */,

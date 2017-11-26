@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 protocol NSTAuthenticationViewControllerDelegate {
-    func viewController(_: NSTAuthenticationViewController, receivedCredentials credentials: String)
+    func viewController(_: NSTAuthenticationViewController, receivedPin pin: String)
 }
 
 class NSTAuthenticationViewController: UIViewController {
@@ -60,7 +60,7 @@ class NSTAuthenticationViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: "Please dial the received PIN", preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil)
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (_: UIAlertAction) in
-            self.delegate?.viewController(self, receivedCredentials: (alert.textFields?.first?.text)!)
+            self.delegate?.viewController(self, receivedPin: (alert.textFields?.first?.text)!)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
         

@@ -8,4 +8,12 @@
 
 class Structure {
     open var name: String?
+    
+    open class func parse(json: [String : Any]) -> Structure? {
+        let structure = Structure()
+        
+        structure.name = json["name"] as? String
+        
+        return structure
+    }
 }

@@ -10,7 +10,9 @@ import Alamofire
 
 class NSTConnectionService {
     
-    private static let requestEndpointUrlFormat = "https://developer-api.nest.com/structures/%@"
+    open var authenticationService: NSTAuthenticationService?
+    
+    private static let requestEndpointUrlFormat = "https://developer-api.nest.com/%@"
 
     private func request(_ items: String, token: String, completion: @escaping ([String: Any]?) -> Void) {
         
@@ -25,7 +27,7 @@ class NSTConnectionService {
                     return
                 }
                 
-                if response.statusCode == 401, let length = response.allHeaderFields["Content-Length"] as? Int, length > 0, let count = response.url?.absoluteString.count, count > 0 {
+                if response.statusCode == 401, let count = response.url?.absoluteString.count, count > 0 {
                     // a redirect
                     self.redirect(to: response.url!.absoluteString, token: token, completion: completion)
                     
@@ -52,5 +54,27 @@ class NSTConnectionService {
         }
     }
     
-    
+    open func requestStructures(completion: @escaping ([Structure]?) -> Void) {
+        
+        assert(authenticationService != nil && authenticationService!.token != nil)
+        let token = authenticationService!.token!
+        
+        var structures: [Structure] = []
+        
+        request("structures", token: token, completion: { (result) in
+            guard result != nil else {
+                return
+            }
+            
+            let keys = Array(result!.keys)
+            keys.forEach({ (key) in
+                let structureJSON = result![key]! as! [String : Any]
+                if let structure = Structure.parse(json: structureJSON) {
+                    structures.append(structure)
+                }
+            })
+            
+            completion(structures)
+        })
+    }
 }

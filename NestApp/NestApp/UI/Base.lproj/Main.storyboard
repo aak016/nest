@@ -70,18 +70,68 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pcY-gd-Vbb">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="structureCellId" id="5dR-jD-Dyi">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5dR-jD-Dyi" id="Jen-iU-Riw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ERI-qf-5m0" id="And-GX-7NP"/>
+                                </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCi-E5-Aio">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Structures Data..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM3-uB-UNy">
+                                        <rect key="frame" x="63" y="281" width="250" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="i9o-Va-x68"/>
+                                            <constraint firstAttribute="height" constant="41" id="oC9-3S-ojr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mZD-3p-tPk">
+                                        <rect key="frame" x="169" y="328" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="37" id="lkQ-oA-4GZ"/>
+                                            <constraint firstAttribute="height" constant="37" id="xJl-cH-ZJY"/>
+                                        </constraints>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.8137940316620268" green="0.8137940316620268" blue="0.8137940316620268" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="SM3-uB-UNy" firstAttribute="centerY" secondItem="zCi-E5-Aio" secondAttribute="centerY" id="GYQ-qY-CAb"/>
+                                    <constraint firstItem="SM3-uB-UNy" firstAttribute="centerX" secondItem="zCi-E5-Aio" secondAttribute="centerX" id="oax-cU-R3T"/>
+                                    <constraint firstItem="mZD-3p-tPk" firstAttribute="top" secondItem="SM3-uB-UNy" secondAttribute="bottom" constant="6" id="tff-Kg-UEf"/>
+                                    <constraint firstItem="mZD-3p-tPk" firstAttribute="centerX" secondItem="SM3-uB-UNy" secondAttribute="centerX" id="uhn-rq-Hep"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pcY-gd-Vbb" firstAttribute="trailing" secondItem="arf-ns-EWL" secondAttribute="trailing" id="BDb-mM-Zdc"/>
                             <constraint firstItem="pcY-gd-Vbb" firstAttribute="bottom" secondItem="arf-ns-EWL" secondAttribute="bottom" id="D0u-wl-dEw"/>
                             <constraint firstItem="pcY-gd-Vbb" firstAttribute="leading" secondItem="arf-ns-EWL" secondAttribute="leading" id="NJA-CP-oYb"/>
+                            <constraint firstItem="zCi-E5-Aio" firstAttribute="trailing" secondItem="arf-ns-EWL" secondAttribute="trailing" id="bBV-nI-ZLr"/>
                             <constraint firstItem="pcY-gd-Vbb" firstAttribute="top" secondItem="arf-ns-EWL" secondAttribute="top" id="cAh-ke-Xfo"/>
+                            <constraint firstItem="zCi-E5-Aio" firstAttribute="bottom" secondItem="arf-ns-EWL" secondAttribute="bottom" id="flh-9v-4aK"/>
+                            <constraint firstItem="zCi-E5-Aio" firstAttribute="leading" secondItem="arf-ns-EWL" secondAttribute="leading" id="p5z-ll-1fk"/>
+                            <constraint firstItem="zCi-E5-Aio" firstAttribute="top" secondItem="arf-ns-EWL" secondAttribute="top" id="wsL-gO-nQ1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="arf-ns-EWL"/>
                     </view>
                     <navigationItem key="navigationItem" id="g31-rT-HQu"/>
+                    <connections>
+                        <outlet property="loadingIndicatorView" destination="zCi-E5-Aio" id="8Se-Yc-IRw"/>
+                        <outlet property="tableView" destination="pcY-gd-Vbb" id="zC6-Cz-9Rp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aO0-uO-IR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

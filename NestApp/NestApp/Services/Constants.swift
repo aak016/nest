@@ -9,5 +9,5 @@
 class Constants {
     public static let productId = ""
     public static let productSecret = ""
-    public static let authorizationUrl = ""
+    public static let authorizationUrl = "https://home.nest.com/login/oauth2?client_id=%@&state=%@"
 }

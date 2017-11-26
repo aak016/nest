@@ -9,18 +9,25 @@
 import Alamofire
 import UIKit
 
+protocol NSTAuthenticationServiceDelegate {
+    func authenticationServiceReady(_ service: NSTAuthenticationService)
+    func authenticationServiceFailed(_ service: NSTAuthenticationService)
+}
+
 class NSTAuthenticationService: UIViewController {
     
     private static let authorizationUrlFormat = "https://api.home.nest.com/oauth2/access_token?code=%@&client_id=%@&client_secret=%@&grant_type=authorization_code"
     private static let tokenKey = "accessTokenKey"
     
     private(set) var token: String?
+    
+    open var delegate: NSTAuthenticationServiceDelegate?
 
     open func authorized() -> Bool {
         return (token?.count ?? 0) > 0
     }
     
-    open func request(authorizationCode code: String, completion: @escaping (String?) -> Void) {
+    private func request(pin code: String, completion: @escaping (String?) -> Void) {
         let clientId = Constants.productId
         let clientSecret = Constants.productSecret
 
@@ -32,7 +39,6 @@ class NSTAuthenticationService: UIViewController {
             .validate()
             .responseJSON { [weak self] (response) in
                 let result = response.result.value! as! [String: Any]
-                let expiresIn = result["expires_in"] ?? ""
                 let accessToken = result["access_token"] ?? ""
                 
                 self?.token = accessToken as? String
@@ -41,6 +47,14 @@ class NSTAuthenticationService: UIViewController {
         
         group.notify(queue: DispatchQueue.main) {
             completion(self.token)
+        }
+    }
+    
+    open func setPin(_ pin: String) {
+        request(pin: pin) { (_) in
+            DispatchQueue.main.async {
+                self.delegate?.authenticationServiceReady(self)
+            }
         }
     }
 }
