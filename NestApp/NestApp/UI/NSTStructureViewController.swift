@@ -89,6 +89,8 @@ class NSTStructureViewController: UIViewController {
         
         if (sender! as! UITableViewCell).reuseIdentifier == "cameraCellId", getCamera(for: selectedRow.row) != nil {
             return true
+        } else if (sender! as! UITableViewCell).reuseIdentifier == "thermostatCellId", getThermostat(for: selectedRow.row) != nil {
+            return true
         } else {
             tableView.deselectRow(at: selectedRow, animated: true)
             return false
@@ -102,6 +104,9 @@ class NSTStructureViewController: UIViewController {
         if sections[selectedRow.section] == NSTStructureViewController.camerasSection {
             let foundCamera = getCamera(for: selectedRow.row)!
             (segue.destination as! NSTCameraViewController).configure(with: foundCamera)
+        } else if sections[selectedRow.section] == NSTStructureViewController.thermostatsSection {
+            let thermostat = getThermostat(for: selectedRow.row)!
+            (segue.destination as! NSTThermostatViewController).configure(thermostat: thermostat)
         }
     }
 }
