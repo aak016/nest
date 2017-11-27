@@ -12,27 +12,49 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    private lazy var authenticationService: NSTAuthenticationService = {
+        let service = NSTAuthenticationService()
+        service.delegate = self
+        return service
+    } ()
+    private lazy var structuresProvider: NSTStructuresProvider = {
+        let structures = NSTStructuresProvider()
+        structures.authenticationService = self.authenticationService
+        return structures
+    } ()
+    
+    private var initialViewController: NSTMainTableViewController!
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let navigationViewController = storyboard.instantiateViewController(withIdentifier: "initialViewController") as! UINavigationController
+        initialViewController = navigationViewController.viewControllers.first! as! NSTMainTableViewController
+        
+        initialViewController.authenticationService = authenticationService
+        initialViewController.structuresProvider = structuresProvider
+        
+        self.window?.rootViewController = navigationViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
-
-
 }
 
+extension AppDelegate: NSTAuthenticationServiceDelegate {
+    func authenticationServiceReady(_ service: NSTAuthenticationService) {
+        initialViewController.authenticationSuccessful()
+    }
+    
+    func authenticationServiceFailed(_ service: NSTAuthenticationService) {
+        initialViewController.authenticationFailed()
+    }
+    
+    
+}

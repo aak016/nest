@@ -28,7 +28,7 @@ class NSTStructureViewController: UIViewController {
             }
         }
     }
-    private var currentStructures: CurrentStructures?
+    private var structuresProvider: StructuresProviderProtocol?
     
     private var cameras: [String : Camera?] = [:]
     private var thermostats: [String : Thermostat?] = [:]
@@ -37,16 +37,18 @@ class NSTStructureViewController: UIViewController {
     private static let thermostatsSection = "Thermostats"
     private let sections = [NSTStructureViewController.camerasSection, NSTStructureViewController.thermostatsSection]
 
-    open func configure(with structure: Structure, currentStructures: CurrentStructures) {
+    open func configure(with structure: Structure, structuresProvider: StructuresProviderProtocol) {
         
         self.structure = structure
-        self.currentStructures = currentStructures
+        self.structuresProvider = structuresProvider
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if structure != nil {
+            navigationItem.title = structure!.name
+            
             titleLabel.text = structure?.name
             tableView.reloadData()
         }
@@ -113,18 +115,6 @@ extension NSTStructureViewController: UITableViewDataSource, UITableViewDelegate
     private static let thermostatSection = 1
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        var sections = 0
-//
-//        if cameras.count > 0 {
-//            sections += 1
-//        }
-//
-//        if thermostats.count > 0 {
-//            sections += 1
-//        }
-//
-//        return sections
-        
         return 2
     }
     
@@ -153,7 +143,7 @@ extension NSTStructureViewController: UITableViewDataSource, UITableViewDelegate
             cell.accessoryType = .none
             
             let cameraId = getCameraId(for: index)!
-            currentStructures?.getCamera(id: cameraId, completion: { [weak self, weak tableView] (camera) in
+            structuresProvider?.getCamera(id: cameraId, completion: { [weak self, weak tableView] (camera) in
                 if camera != nil {
                     self?.cameras[cameraId] = camera
                     tableView?.reloadRows(at: [IndexPath(row: index, section: NSTStructureViewController.cameraSection)], with: .automatic)
@@ -168,7 +158,8 @@ extension NSTStructureViewController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "thermostatCellId")!
         
         if let thermostat = getThermostat(for: index) {
-            cell.textLabel?.text = String(format: "%@ (%d)", thermostat.whereName!, thermostat.ambientTemperature() ?? 0)
+            let temperatureString = thermostat.ambientTemperature() != nil && thermostat.temperatureScale != nil ? String(format: "(%d%@)", thermostat.ambientTemperature()!, thermostat.temperatureScale!) : ""
+            cell.textLabel?.text = String(format: "%@ %@", thermostat.whereName!, temperatureString)
             cell.accessoryType = .disclosureIndicator
             
         } else {
@@ -176,7 +167,7 @@ extension NSTStructureViewController: UITableViewDataSource, UITableViewDelegate
             cell.accessoryType = .none
             
             let thermostatId = getThermostatId(for: index)!
-            currentStructures?.getThermostat(id: thermostatId, completion: { [weak self, weak tableView] (thermostat) in
+            structuresProvider?.getThermostat(id: thermostatId, completion: { [weak self, weak tableView] (thermostat) in
                 if thermostat != nil {
                     self?.thermostats[thermostatId] = thermostat
                     tableView?.reloadRows(at: [IndexPath(row: index, section: NSTStructureViewController.thermostatSection)], with: .automatic)

@@ -1,5 +1,5 @@
 //
-//  NSTConnectionService.swift
+//  NSTStructuresService.swift
 //  NestApp
 //
 //  Created by Alexey Kondakov on 25/11/2017.
@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class NSTConnectionService {
+class NSTStructuresService {
     
     open var authenticationService: NSTAuthenticationService?
     
@@ -16,7 +16,7 @@ class NSTConnectionService {
 
     private func request(_ items: String, token: String, completion: @escaping ([String: Any]?) -> Void) {
         
-        let url = URL(string: String(format: NSTConnectionService.requestEndpointUrlFormat, items))!
+        let url = URL(string: String(format: NSTStructuresService.requestEndpointUrlFormat, items))!
         let authString = String(format: "Bearer %@", token)
         Alamofire.request(url, method: .get, headers: ["Content-Type" : "application/json", "authorization" : authString])
             .validate()

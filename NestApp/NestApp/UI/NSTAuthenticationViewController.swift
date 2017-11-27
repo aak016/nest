@@ -26,12 +26,6 @@ class NSTAuthenticationViewController: UIViewController {
         self.clientId = clientId
         self.state = state
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        webView.navigationDelegate = self
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -68,6 +62,3 @@ class NSTAuthenticationViewController: UIViewController {
     }
 }
 
-extension NSTAuthenticationViewController: WKNavigationDelegate {
-    
-}

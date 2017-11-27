@@ -8,12 +8,17 @@
 
 import Alamofire
 
+protocol AuthenticationProtocol {
+    var needsPin: Bool { get }
+    func setPin(_ pin: String)
+}
+
 protocol NSTAuthenticationServiceDelegate {
     func authenticationServiceReady(_ service: NSTAuthenticationService)
     func authenticationServiceFailed(_ service: NSTAuthenticationService)
 }
 
-class NSTAuthenticationService {
+class NSTAuthenticationService: AuthenticationProtocol {
     
     private static let authorizationUrlFormat = "https://api.home.nest.com/oauth2/access_token?code=%@&client_id=%@&client_secret=%@&grant_type=authorization_code"
     private static let tokenKey = "accessTokenKey"
@@ -41,7 +46,7 @@ class NSTAuthenticationService {
         token = storedToken
     }
 
-    open func authorized() -> Bool {
+    open var needsPin: Bool {
         return (token?.count ?? 0) > 0
     }
     
@@ -56,10 +61,13 @@ class NSTAuthenticationService {
         Alamofire.request(URL(string: authorizationUrl)!, method: .post, headers: ["Content-Type" : "form-data"])
             .validate()
             .responseJSON { [weak self] (response) in
-                let result = response.result.value! as! [String: Any]
-                let accessToken = result["access_token"] ?? ""
-                
-                self?.token = accessToken as? String
+                if let result = response.result.value as? [String: Any] {
+                    let accessToken = result["access_token"] ?? ""
+                    
+                    self?.token = accessToken as? String
+                } else {
+                    self?.token = nil
+                }
                 group.leave()
         }
         
@@ -73,7 +81,11 @@ class NSTAuthenticationService {
     open func setPin(_ pin: String) {
         request(pin: pin) { (_) in
             DispatchQueue.main.async {
-                self.delegate?.authenticationServiceReady(self)
+                if self.token != nil && self.token!.count > 0 {
+                    self.delegate?.authenticationServiceReady(self)
+                } else {
+                    self.delegate?.authenticationServiceFailed(self)
+                }
             }
         }
     }

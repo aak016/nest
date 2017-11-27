@@ -8,7 +8,16 @@
 
 import Foundation
 
-class CurrentStructures {
+protocol StructuresProviderProtocol {
+    func getStructures(completion: @escaping([Structure]?) -> Void)
+    
+    func getCamera(id: String, completion: @escaping(Camera?) -> Void)
+    func getThermostat(id: String, completion: @escaping(Thermostat?) -> Void)
+    
+    func invalidate()
+}
+
+class NSTStructuresProvider: StructuresProviderProtocol {
     
     private var cachedStructures: [Structure]?
     private var cachedCameras: [Camera] = []
@@ -16,11 +25,11 @@ class CurrentStructures {
     
     var authenticationService: NSTAuthenticationService? {
         didSet {
-            self.connectionService.authenticationService = authenticationService
+            self.structuresService.authenticationService = authenticationService
         }
     }
     
-    private var connectionService = NSTConnectionService()
+    private var structuresService = NSTStructuresService()
     
     open func getStructures(completion: @escaping([Structure]?) -> Void) {
         
@@ -29,7 +38,7 @@ class CurrentStructures {
                 completion(structures)
             }
         } else {
-            connectionService.requestStructures { (result) in
+            structuresService.requestStructures { (result) in
                 self.cachedStructures = result
                 DispatchQueue.main.async {
                     completion(result)
@@ -44,7 +53,7 @@ class CurrentStructures {
                 completion(camera)
             }
         } else {
-            connectionService.requestCamera(id: id, completion: { [weak self] (camera) in
+            structuresService.requestCamera(id: id, completion: { [weak self] (camera) in
                 DispatchQueue.main.async {
                     if camera != nil {
                         self?.cachedCameras = self?.cachedCameras.filter { return $0.id != id } ?? []
@@ -62,7 +71,7 @@ class CurrentStructures {
                 completion(thermostat)
             }
         } else {
-            connectionService.requestThermostat(id: id, completion: { [weak self] (thermostat) in
+            structuresService.requestThermostat(id: id, completion: { [weak self] (thermostat) in
                 DispatchQueue.main.async {
                     if thermostat != nil {
                         self?.cachedThermostats = self?.cachedThermostats.filter { return $0.id != id } ?? []

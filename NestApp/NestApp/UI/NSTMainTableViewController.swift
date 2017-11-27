@@ -10,18 +10,8 @@ import UIKit
 
 class NSTMainTableViewController: UIViewController {
     
-    private var needToRequestPIN = false
-    private lazy var authenticationService: NSTAuthenticationService = {
-        let service = NSTAuthenticationService()
-        service.delegate = self
-        return service
-    } ()
-    private lazy var currentStructures: CurrentStructures = {
-        let structures = CurrentStructures()
-        structures.authenticationService = self.authenticationService
-        return structures
-    } ()
-    
+    open var authenticationService: AuthenticationProtocol!
+    open var structuresProvider: StructuresProviderProtocol!
     
     private var structures: [Structure]?
     
@@ -31,6 +21,8 @@ class NSTMainTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "My Structures"
+        
         let reloadItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: #selector(reload(_:)))
         navigationItem.rightBarButtonItem = reloadItem
     }
@@ -38,10 +30,9 @@ class NSTMainTableViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if authenticationService.authorized() {
+        if authenticationService.needsPin {
             populateTable()
         } else {
-            needToRequestPIN = true
             presentAuthenticationController()
         }
     }
@@ -69,7 +60,7 @@ class NSTMainTableViewController: UIViewController {
             
             if selectedIndexPath != nil, structures != nil {
                 let structure = structures![selectedIndexPath!.row]
-                destination.configure(with: structure, currentStructures: currentStructures)
+                destination.configure(with: structure, structuresProvider: structuresProvider)
             } else {
                 assert(false, "shouldPerformSegue had to prevent this situation!")
             }
@@ -77,9 +68,7 @@ class NSTMainTableViewController: UIViewController {
     }
     
     private func presentAuthenticationController() {
-        if needToRequestPIN && !authenticationService.authorized() {
-            needToRequestPIN = false
-            
+        if !authenticationService.needsPin {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let authController = storyboard.instantiateViewController(withIdentifier: "authenticationVC") as! NSTAuthenticationViewController
             authController.configure(clientId: Constants.productId, state: "STATE")
@@ -93,7 +82,7 @@ class NSTMainTableViewController: UIViewController {
     private func populateTable() {
         view.bringSubview(toFront: loadingIndicatorView)
         
-        currentStructures.getStructures { [weak self] (structures) in
+        structuresProvider.getStructures { [weak self] (structures) in
             self?.structures = structures
             self?.tableView?.reloadData()
             
@@ -103,18 +92,9 @@ class NSTMainTableViewController: UIViewController {
         }
     }
     
-    private func reportTokenFailure() {
-        let alert = UIAlertController(title: "Error", message: "Could not receive a security token from Nest server.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Retry", style: .destructive, handler: nil))
-        
-        self.present(alert, animated: true) { [weak self] in
-            self?.needToRequestPIN = true
-            self?.presentAuthenticationController()
-        }
-    }
-    
+   
     @objc private func reload(_: AnyObject) {
-        currentStructures.invalidate()
+        structuresProvider.invalidate()
         populateTable()
     }
 }
@@ -163,13 +143,15 @@ extension NSTMainTableViewController: NSTAuthenticationViewControllerDelegate {
     }
 }
 
-extension NSTMainTableViewController: NSTAuthenticationServiceDelegate {
-    func authenticationServiceReady(_ service: NSTAuthenticationService) {
+extension NSTMainTableViewController {
+    func authenticationSuccessful() {
         populateTable()
     }
     
-    func authenticationServiceFailed(_ service: NSTAuthenticationService) {
-        needToRequestPIN = true
-        presentAuthenticationController()
+    func authenticationFailed() {
+        let alert = UIAlertController(title: "Error", message: "The entered PIN was not accepted.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
